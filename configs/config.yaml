@@ -1,0 +1,52 @@
+# =============================================================================
+# configs/config.yaml
+# Central configuration file for the Pneumonia Classifier project.
+# Every hyperparameter, path, and setting lives here — never hardcoded in code.
+# =============================================================================
+
+# ── Paths ────────────────────────────────────────────────────────────────────
+paths:
+  data_dir: "chest_xray"          # Root folder of the dataset
+  checkpoint_dir: "models/checkpoints"   # Where model weights are saved
+  log_dir: "logs"                 # TensorBoard & training logs
+  mlflow_dir: "mlruns"            # MLflow experiment store
+
+# ── Data ─────────────────────────────────────────────────────────────────────
+data:
+  image_size: 224                 # Resize all images to 224x224 (ImageNet standard)
+  num_workers: 0                  # 0 is safest on Windows to prevent hanging/freezing
+  val_split: 0.1                  # 10% of train set used as validation
+  random_seed: 42                 # Seed for reproducibility
+  augmentation: true              # Apply augmentation to train split only
+
+# ── Model ────────────────────────────────────────────────────────────────────
+model:
+  architecture: "efficientnet_b3" # Options: baseline_cnn, vgg16, resnet50, efficientnet_b3, densenet121
+  pretrained: true                # Use ImageNet pretrained weights
+  dropout: 0.3                    # Dropout rate on classifier head
+  num_classes: 1                  # Binary: 1 output neuron + BCEWithLogitsLoss
+
+# ── Training ─────────────────────────────────────────────────────────────────
+training:
+  epochs: 50                      # Max training epochs (EarlyStopping will cut short)
+  batch_size: 32                  # Images per batch
+  learning_rate: 0.001            # Initial LR for classifier head
+  backbone_lr: 0.00001            # LR for backbone during fine-tuning (10x smaller)
+  optimizer: "adam"               # Optimizer: adam | sgd | adamw
+  scheduler: "cosine"             # LR scheduler: cosine | plateau | step
+  early_stopping_patience: 7      # Stop training if val_loss doesn't improve for N epochs
+  checkpoint_metric: "val_f1"     # Metric to track for best model saving
+
+# ── Fine-tuning ───────────────────────────────────────────────────────────────
+finetune:
+  unfreeze_blocks: ["features.6", "features.7", "features.8"]  # EfficientNet blocks to unfreeze
+
+# ── Evaluation ────────────────────────────────────────────────────────────────
+evaluation:
+  threshold: 0.5                  # Decision threshold for binary classification
+  primary_metric: "recall"        # Medical priority: minimize false negatives
+
+# ── MLflow ────────────────────────────────────────────────────────────────────
+mlflow:
+  experiment_name: "pneumonia-classifier"
+  tracking_uri: "http://localhost:5000"

@@ -1,0 +1,47 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Dataset
+chest_xray/
+
+# Model Weights
+models/checkpoints/
+*.pth
+*.pt
+
+# MLflow Tracking
+mlruns/
+.trash/
+
+# Logs & Uploads
+logs/
+
+# IDEs and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Project Specific (Do not push assignment PDFs and my planning docs)
+Assignment on Deep Learning.pdf
+Pneumonia_Classifier_Implementation_Plan.pdf
+assignment_text.txt
+implementation_plan.md
+implementation_deply_plan.md
+task.md
+deploy_task.md
+walkthrough.md
+deply_walkthrough.md
+Project_Report.md

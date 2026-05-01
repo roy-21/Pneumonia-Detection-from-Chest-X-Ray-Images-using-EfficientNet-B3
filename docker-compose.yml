@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: pneumonia_classifier_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    depends_on:
+      - mlflow
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.7.1
+    container_name: mlflow_server
+    ports:
+      - "5000:5000"
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --backend-store-uri sqlite:///mlruns/mlflow.db
+      --default-artifact-root /mlruns
+    volumes:
+      - ./mlruns:/mlruns
+    restart: unless-stopped
