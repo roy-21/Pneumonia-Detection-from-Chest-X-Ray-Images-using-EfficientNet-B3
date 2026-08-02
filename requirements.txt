@@ -18,6 +18,7 @@ dvc-gdrive>=2.20.0
 fastapi>=0.103.1
 uvicorn>=0.23.2
 python-multipart>=0.0.6
+gradio>=3.41.0
 
 # Utilities
 pyyaml>=6.0
