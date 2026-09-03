@@ -5,6 +5,11 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)](https://pytorch.org/)
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
 
+
+```
+project introduction
+```
+
 > A Deep Learning system for detecting Pneumonia from Chest X-Ray images, built with production-grade ML engineering standards.
 
 ## 📖 Overview
